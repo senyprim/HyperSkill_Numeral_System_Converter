@@ -1,6 +1,8 @@
 package converter;
 
 import java.math.BigInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Number {
     private int number;
@@ -9,7 +11,11 @@ public class Number {
     }
     public Number(){this(0);}
     public void setNumber(String number, int base){
-        this.number = (new BigInteger(number,base)).intValue();
+        if (base>1){
+            this.number = (new BigInteger(number,base)).intValue();
+        } else if (base==1) {
+            this.number = number.length();
+        }
     }
     public void setNumber(int number){
         setNumber(Integer.toString(number),10);
@@ -32,9 +38,16 @@ public class Number {
         }
         return result;
     }
+    public String getNumberWithPrefix(int base){
+        return getPrefixBase(base)+getNumber(base);
+    }
     public String getNumber(int base){
-
-        return getPrefixBase(base)+Integer.toString(this.number,base);
+        if (base>1){
+            return Integer.toString(this.number,base);
+        }else if (base==1){
+            return Stream.generate(()->"1").limit(this.number).collect(Collectors.joining());
+        }
+        return "";
     }
     public String getNumber(){return Integer.toString(this.number,10);
     }
