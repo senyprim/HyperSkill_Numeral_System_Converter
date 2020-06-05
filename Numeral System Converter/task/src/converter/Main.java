@@ -5,7 +5,8 @@ public class Main {
         Scanner scanner = new Scanner( System.in );
         Number number = new Number();
         number.setNumber(scanner.nextLine(),10);
-        String otherBase = number.getNumber(8);
-        System.out.print(otherBase.substring(otherBase.length()-1));
+        int base = Integer.parseInt(scanner.nextLine());
+        String otherBase = number.getNumber(base);
+        System.out.print(otherBase);
     }
 }
